@@ -218,11 +218,10 @@ export const TRACKS: Record<TrackId, TrackData> = {
     id: 'lava',
     name: 'Lava Circuit',
     path: [
-      { x: 512, y: 400 },
-      { x: 800, y: 200 },
-      { x: 200, y: 200 },
-      { x: 200, y: 600 },
-      { x: 800, y: 600 },
+      { x: 150, y: 150 },
+      { x: 850, y: 150 },
+      { x: 850, y: 650 },
+      { x: 150, y: 650 },
     ],
     width: 150,
     grassColor: "#450a0a", // lava dark
