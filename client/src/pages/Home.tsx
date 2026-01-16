@@ -2,13 +2,32 @@ import { useState } from "react";
 import { useLocation } from "wouter";
 import { CarCard } from "@/components/CarCard";
 import { NeonButton } from "@/components/NeonButton";
-import { CARS, type CarModel } from "@/game/assets";
-import { Play } from "lucide-react";
+import { CARS, TRACKS, type CarModel, type TrackId } from "@/game/assets";
+import { Play, Lock, Map as MapIcon, Gauge } from "lucide-react";
 import { motion } from "framer-motion";
+import { useQuery } from "@tanstack/react-query";
+import { api } from "@shared/routes";
 
 export default function Home() {
   const [, setLocation] = useLocation();
   const [selectedCar, setSelectedCar] = useState<CarModel>("Prelude 2026");
+  const [selectedTrack, setSelectedTrack] = useState<TrackId>("forest");
+
+  const { data: scores } = useQuery({
+    queryKey: [api.scores.list.path],
+  });
+
+  const fastLapsCount = scores?.filter(s => s.lapTime < 20000).length || 0;
+  const isUnlocked = fastLapsCount >= 3;
+
+  const isCarLocked = (carId: CarModel) => {
+    return (carId === 'Jesko' || carId === 'Supra MK4') && !isUnlocked;
+  };
+
+  const handleStart = () => {
+    if (isCarLocked(selectedCar)) return;
+    setLocation(`/game?car=${encodeURIComponent(selectedCar)}&track=${selectedTrack}`);
+  };
 
   return (
     <div className="min-h-screen flex flex-col relative overflow-hidden">
@@ -17,65 +36,114 @@ export default function Home() {
       {/* Dynamic background effect */}
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-purple-900/40 via-background to-background -z-10" />
 
-      <main className="flex-1 container mx-auto px-4 py-12 flex flex-col items-center justify-center z-10">
+      <main className="flex-1 container mx-auto px-4 py-8 flex flex-col items-center justify-center z-10">
         
         {/* Title Section */}
         <motion.div 
           initial={{ y: -50, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ duration: 0.8 }}
-          className="text-center mb-16 space-y-2"
+          className="text-center mb-8 space-y-2"
         >
           <h2 className="text-xl md:text-2xl text-cyan-400 font-display tracking-[0.5em] neon-text-cyan">
             TURBO CHARGED
           </h2>
-          <h1 className="text-6xl md:text-8xl font-black font-display text-transparent bg-clip-text bg-gradient-to-r from-primary via-purple-500 to-secondary drop-shadow-[0_0_20px_rgba(236,72,153,0.5)] italic">
+          <h1 className="text-6xl md:text-7xl font-black font-display text-transparent bg-clip-text bg-gradient-to-r from-primary via-purple-500 to-secondary drop-shadow-[0_0_20px_rgba(236,72,153,0.5)] italic">
             NEON RACER
           </h1>
-          <div className="h-1 w-32 mx-auto bg-primary shadow-[0_0_10px_#ec4899] mt-6" />
+          <div className="text-white/40 font-display text-xs uppercase mt-2">
+            Unlock secret cars: 3 laps under 20s ({fastLapsCount}/3)
+          </div>
         </motion.div>
 
-        {/* Car Selection */}
-        <div className="w-full max-w-4xl mb-12">
-          <h3 className="text-center text-white/60 mb-8 font-display uppercase tracking-widest text-sm">Select Your Machine</h3>
-          
-          <div className="grid md:grid-cols-2 gap-8">
-            {(Object.keys(CARS) as CarModel[]).map((carKey, index) => (
-              <motion.div
-                key={carKey}
-                initial={{ x: index === 0 ? -100 : 100, opacity: 0 }}
-                animate={{ x: 0, opacity: 1 }}
-                transition={{ delay: 0.2 + (index * 0.2) }}
-              >
-                <CarCard 
-                  car={CARS[carKey]} 
-                  selected={selectedCar === carKey}
-                  onSelect={() => setSelectedCar(carKey)}
-                />
-              </motion.div>
-            ))}
+        <div className="grid lg:grid-cols-2 gap-12 w-full max-w-6xl">
+          {/* Car Selection */}
+          <div>
+            <h3 className="text-white/60 mb-6 font-display uppercase tracking-widest text-sm flex items-center gap-2">
+              <Gauge size={16} /> Select Your Machine
+            </h3>
+            
+            <div className="grid sm:grid-cols-2 gap-4 max-h-[400px] overflow-y-auto pr-2 custom-scrollbar">
+              {(Object.keys(CARS) as CarModel[]).map((carKey, index) => {
+                const locked = isCarLocked(carKey);
+                return (
+                  <motion.div
+                    key={carKey}
+                    initial={{ x: -50, opacity: 0 }}
+                    animate={{ x: 0, opacity: 1 }}
+                    transition={{ delay: 0.1 * index }}
+                    className="relative"
+                  >
+                    <CarCard 
+                      car={CARS[carKey]} 
+                      selected={selectedCar === carKey}
+                      onSelect={() => !locked && setSelectedCar(carKey)}
+                      className={locked ? "opacity-50 grayscale cursor-not-allowed" : ""}
+                    />
+                    {locked && (
+                      <div className="absolute inset-0 flex items-center justify-center bg-black/20 pointer-events-none">
+                        <Lock className="text-white/60" size={32} />
+                      </div>
+                    )}
+                  </motion.div>
+                );
+              })}
+            </div>
+          </div>
+
+          {/* Track Selection */}
+          <div>
+            <h3 className="text-white/60 mb-6 font-display uppercase tracking-widest text-sm flex items-center gap-2">
+              <MapIcon size={16} /> Select Track
+            </h3>
+            <div className="grid gap-4">
+              {(Object.keys(TRACKS) as TrackId[]).map((trackKey, index) => (
+                <motion.div
+                  key={trackKey}
+                  initial={{ x: 50, opacity: 0 }}
+                  animate={{ x: 0, opacity: 1 }}
+                  transition={{ delay: 0.1 * index }}
+                >
+                  <button
+                    onClick={() => setSelectedTrack(trackKey)}
+                    className={`w-full p-4 rounded-lg border transition-all text-left flex items-center justify-between ${
+                      selectedTrack === trackKey 
+                        ? "bg-primary/20 border-primary shadow-[0_0_15px_rgba(236,72,153,0.3)]" 
+                        : "bg-black/40 border-white/10 hover:border-white/30"
+                    }`}
+                  >
+                    <div>
+                      <div className="text-white font-display uppercase">{TRACKS[trackKey].name}</div>
+                      <div className="text-white/40 text-xs">Width: {TRACKS[trackKey].width}px</div>
+                    </div>
+                    {selectedTrack === trackKey && <div className="w-2 h-2 rounded-full bg-primary animate-pulse" />}
+                  </button>
+                </motion.div>
+              ))}
+            </div>
           </div>
         </div>
 
         {/* Start Button */}
         <motion.div
-          initial={{ scale: 0.8, opacity: 0 }}
-          animate={{ scale: 1, opacity: 1 }}
+          initial={{ y: 50, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
           transition={{ delay: 0.6 }}
+          className="mt-12"
         >
           <NeonButton 
-            className="text-2xl px-12 py-6 flex items-center gap-4 animate-pulse"
-            onClick={() => setLocation(`/game?car=${encodeURIComponent(selectedCar)}`)}
+            className={`text-2xl px-12 py-6 flex items-center gap-4 ${isCarLocked(selectedCar) ? "opacity-50 cursor-not-allowed" : "animate-pulse"}`}
+            onClick={handleStart}
+            disabled={isCarLocked(selectedCar)}
           >
-            START ENGINE <Play fill="currentColor" />
+            {isCarLocked(selectedCar) ? "LOCKED" : "START ENGINE"} <Play fill="currentColor" />
           </NeonButton>
         </motion.div>
 
       </main>
 
-      {/* Footer */}
       <footer className="py-6 text-center text-white/20 font-display text-xs uppercase tracking-widest">
-        v1.0.0 • React • Canvas • Wouter
+        v1.1.0 • Multi-Track Update
       </footer>
     </div>
   );
