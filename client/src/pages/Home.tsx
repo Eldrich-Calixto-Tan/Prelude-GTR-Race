@@ -19,13 +19,16 @@ export default function Home() {
 
   const fastLapsCount = (scores as any[])?.filter(s => s.lapTime < 20000).length || 0;
   const eliteLapsCount = (scores as any[])?.filter(s => s.lapTime < 15000).length || 0;
+  const ultimateLapsCount = (scores as any[])?.filter(s => s.lapTime < 10000).length || 0;
   
   const isUnlocked = fastLapsCount >= 3;
   const isEliteUnlocked = eliteLapsCount >= 10;
+  const isUltimateUnlocked = ultimateLapsCount >= 15;
 
   const isCarLocked = (carId: CarModel) => {
     if (carId === 'Jesko' || carId === 'Supra MK4') return !isUnlocked;
     if (carId === 'Chiron' || carId === 'Gemera') return !isEliteUnlocked;
+    if (carId === 'AMG One' || carId === '911 Turbo S') return !isUltimateUnlocked;
     return false;
   };
 
@@ -62,6 +65,9 @@ export default function Home() {
             </div>
             <div className="text-cyan-400/60 font-display text-xs uppercase">
               Unlock Elite hypercars: 10 laps under 15s ({eliteLapsCount}/10)
+            </div>
+            <div className="text-yellow-400/60 font-display text-xs uppercase">
+              Unlock Ultimate Legends: 15 laps under 10s ({ultimateLapsCount}/15)
             </div>
           </div>
         </motion.div>
