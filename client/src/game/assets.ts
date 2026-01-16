@@ -132,7 +132,7 @@ export const CARS: Record<CarModel, CarStats> = {
   }
 };
 
-export type TrackId = 'forest' | 'desert' | 'city' | 'mountain' | 'lava';
+export type TrackId = 'forest' | 'desert' | 'city' | 'mountain' | 'lava' | 'chaos';
 
 export interface TrackData {
   id: TrackId;
@@ -228,5 +228,27 @@ export const TRACKS: Record<TrackId, TrackData> = {
     asphaltColor: "#1a1a1a",
     curbColor1: "#f97316", // orange
     curbColor2: "#7f1d1d",
+  },
+  chaos: {
+    id: 'chaos',
+    name: 'Chaos Circuit',
+    path: [
+      { x: 512, y: 100 },
+      { x: 800, y: 100 },
+      { x: 800, y: 400 },
+      { x: 200, y: 400 },
+      { x: 200, y: 700 },
+      { x: 800, y: 700 },
+      { x: 900, y: 400 },
+      { x: 512, y: 400 },
+      { x: 512, y: 700 },
+      { x: 100, y: 700 },
+      { x: 100, y: 100 },
+    ],
+    width: 90,
+    grassColor: "#1e1b4b", // deep indigo
+    asphaltColor: "#020617",
+    curbColor1: "#d946ef", // fuchsia
+    curbColor2: "#000000",
   }
 };

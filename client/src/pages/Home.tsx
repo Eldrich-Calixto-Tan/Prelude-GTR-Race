@@ -129,7 +129,7 @@ export default function Home() {
                     }`}
                   >
                     <div>
-                      <div className="text-white font-display uppercase">{TRACKS[trackKey].name}</div>
+                      <div className="text-white font-display uppercase truncate max-w-[150px]">{TRACKS[trackKey].name}</div>
                       <div className="text-white/40 text-xs">Width: {TRACKS[trackKey].width}px</div>
                     </div>
                     {selectedTrack === trackKey && <div className="w-2 h-2 rounded-full bg-primary animate-pulse" />}
