@@ -132,7 +132,7 @@ export const CARS: Record<CarModel, CarStats> = {
   }
 };
 
-export type TrackId = 'forest' | 'desert' | 'city';
+export type TrackId = 'forest' | 'desert' | 'city' | 'mountain' | 'lava';
 
 export interface TrackData {
   id: TrackId;
@@ -196,5 +196,38 @@ export const TRACKS: Record<TrackId, TrackData> = {
     curbColor1: "#3b82f6", // blue-500
     curbColor2: "#ffffff",
     backgroundImage: "/images/track_city.png"
+  },
+  mountain: {
+    id: 'mountain',
+    name: 'Mountain Pass',
+    path: [
+      { x: 100, y: 100 },
+      { x: 500, y: 100 },
+      { x: 900, y: 300 },
+      { x: 900, y: 600 },
+      { x: 500, y: 700 },
+      { x: 100, y: 400 },
+    ],
+    width: 130,
+    grassColor: "#f1f5f9", // snow
+    asphaltColor: "#475569", 
+    curbColor1: "#3b82f6",
+    curbColor2: "#ffffff",
+  },
+  lava: {
+    id: 'lava',
+    name: 'Lava Circuit',
+    path: [
+      { x: 512, y: 400 },
+      { x: 800, y: 200 },
+      { x: 200, y: 200 },
+      { x: 200, y: 600 },
+      { x: 800, y: 600 },
+    ],
+    width: 150,
+    grassColor: "#450a0a", // lava dark
+    asphaltColor: "#1a1a1a",
+    curbColor1: "#f97316", // orange
+    curbColor2: "#7f1d1d",
   }
 };
