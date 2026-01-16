@@ -1,5 +1,5 @@
 // Define car properties and asset paths
-export type CarModel = 'Prelude 2026' | 'GTR R34' | 'Supra MK4' | 'Jesko';
+export type CarModel = 'Prelude 2026' | 'GTR R34' | 'Supra MK4' | 'Jesko' | 'Chiron' | 'Gemera';
 
 export interface CarStats {
   id: CarModel;
@@ -73,6 +73,34 @@ export const CARS: Record<CarModel, CarStats> = {
     maxSpeed: 24,
     turnSpeed: 0.055,
     driftFactor: 0.95
+  },
+  'Chiron': {
+    id: 'Chiron',
+    name: 'Bugatti Chiron',
+    image: '/images/chiron.png',
+    acceleration: 9.0,
+    topSpeed: 10.0,
+    handling: 7.5,
+    color: '#1d4ed8', // Blue-700
+    
+    accelFactor: 0.22,
+    maxSpeed: 26,
+    turnSpeed: 0.048,
+    driftFactor: 0.96
+  },
+  'Gemera': {
+    id: 'Gemera',
+    name: 'Koenigsegg Gemera',
+    image: '/images/gemera.png',
+    acceleration: 9.8,
+    topSpeed: 9.2,
+    handling: 8.5,
+    color: '#64748b', // Slate-500
+    
+    accelFactor: 0.28,
+    maxSpeed: 22,
+    turnSpeed: 0.052,
+    driftFactor: 0.94
   }
 };
 

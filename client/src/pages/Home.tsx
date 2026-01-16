@@ -18,10 +18,15 @@ export default function Home() {
   });
 
   const fastLapsCount = (scores as any[])?.filter(s => s.lapTime < 20000).length || 0;
+  const eliteLapsCount = (scores as any[])?.filter(s => s.lapTime < 15000).length || 0;
+  
   const isUnlocked = fastLapsCount >= 3;
+  const isEliteUnlocked = eliteLapsCount >= 10;
 
   const isCarLocked = (carId: CarModel) => {
-    return (carId === 'Jesko' || carId === 'Supra MK4') && !isUnlocked;
+    if (carId === 'Jesko' || carId === 'Supra MK4') return !isUnlocked;
+    if (carId === 'Chiron' || carId === 'Gemera') return !isEliteUnlocked;
+    return false;
   };
 
   const handleStart = () => {
@@ -51,8 +56,13 @@ export default function Home() {
           <h1 className="text-6xl md:text-7xl font-black font-display text-transparent bg-clip-text bg-gradient-to-r from-primary via-purple-500 to-secondary drop-shadow-[0_0_20px_rgba(236,72,153,0.5)] italic">
             NEON RACER
           </h1>
-          <div className="text-white/40 font-display text-xs uppercase mt-2">
-            Unlock secret cars: 3 laps under 20s ({fastLapsCount}/3)
+          <div className="flex flex-col gap-1 items-center">
+            <div className="text-white/40 font-display text-xs uppercase">
+              Unlock secret cars: 3 laps under 20s ({fastLapsCount}/3)
+            </div>
+            <div className="text-cyan-400/60 font-display text-xs uppercase">
+              Unlock Elite hypercars: 10 laps under 15s ({eliteLapsCount}/10)
+            </div>
           </div>
         </motion.div>
 
