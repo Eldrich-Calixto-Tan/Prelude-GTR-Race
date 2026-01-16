@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { useLocation } from "wouter";
 import { CARS, TRACKS, type CarModel, type TrackId } from "@/game/assets";
 import { NeonButton } from "@/components/NeonButton";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { ArrowLeft } from "lucide-react";
 
 // Game Constants
