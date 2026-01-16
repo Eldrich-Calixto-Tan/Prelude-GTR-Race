@@ -108,12 +108,11 @@ export default function Home() {
             </div>
           </div>
 
-          {/* Track Selection */}
           <div>
             <h3 className="text-white/60 mb-6 font-display uppercase tracking-widest text-sm flex items-center gap-2">
               <MapIcon size={16} /> Select Track
             </h3>
-            <div className="grid gap-4">
+            <div className="grid sm:grid-cols-2 gap-4 max-h-[400px] overflow-y-auto pr-2 custom-scrollbar">
               {(Object.keys(TRACKS) as TrackId[]).map((trackKey, index) => (
                 <motion.div
                   key={trackKey}
