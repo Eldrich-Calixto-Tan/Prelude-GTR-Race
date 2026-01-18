@@ -34,7 +34,7 @@ export function Leaderboard() {
         </div>
 
         {scores && scores.length > 0 ? (
-          scores.map((score, index) => (
+          scores.slice(0, 10).map((score, index) => (
             <motion.div
               key={score.id}
               initial={{ opacity: 0, x: -20 }}

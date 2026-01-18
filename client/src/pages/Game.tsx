@@ -229,12 +229,12 @@ export default function Game() {
           <div className="text-4xl font-mono text-cyan-400">{(gameState.currentTime / 1000).toFixed(2)}s</div>
         </div>
         <div className="bg-black/50 backdrop-blur border border-cyan-500/30 p-4 rounded-lg">
-          <div className="text-xs text-cyan-400 uppercase mb-2 border-b border-cyan-500/20 pb-1">Top 5 Laps</div>
+          <div className="text-xs text-cyan-400 uppercase mb-2 border-b border-cyan-500/20 pb-1">Top 10 Laps</div>
           <div className="space-y-1 font-mono text-sm">
             {([...(useScores().data || [])]
               .filter(s => s.carModel === carId && s.trackId === trackId)
               .sort((a, b) => a.lapTime - b.lapTime)
-              .slice(0, 5)
+              .slice(0, 10)
               .map((score, i) => (
                 <div key={score.id} className="flex justify-between gap-4">
                   <span className="text-white/40">{i + 1}. {score.username}</span>
