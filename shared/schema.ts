@@ -7,6 +7,7 @@ export const highScores = pgTable("high_scores", {
   id: serial("id").primaryKey(),
   username: text("username").notNull(),
   carModel: text("car_model").notNull(), // 'Prelude 2026' or 'GTR R34'
+  trackId: text("track_id").notNull().default('forest'),
   lapTime: integer("lap_time").notNull(), // in milliseconds
   createdAt: timestamp("created_at").defaultNow(),
 });

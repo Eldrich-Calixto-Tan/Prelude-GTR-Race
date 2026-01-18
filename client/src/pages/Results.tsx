@@ -11,6 +11,7 @@ export default function Results() {
   const params = new URLSearchParams(window.location.search);
   const time = parseInt(params.get("time") || "0");
   const carId = params.get("car") || "Prelude 2026";
+  const trackId = params.get("track") || "forest";
   const [username, setUsername] = useState("");
   const [submitted, setSubmitted] = useState(false);
 
@@ -23,6 +24,7 @@ export default function Results() {
     submitScore.mutate({
       username,
       carModel: carId,
+      trackId: trackId,
       lapTime: time,
     }, {
       onSuccess: () => setSubmitted(true)
@@ -108,7 +110,7 @@ export default function Results() {
         <NeonButton variant="secondary" onClick={() => setLocation("/")}>
           <Home className="mr-2" /> Main Menu
         </NeonButton>
-        <NeonButton onClick={() => setLocation(`/game?car=${encodeURIComponent(carId)}`)}>
+        <NeonButton onClick={() => setLocation(`/game?car=${encodeURIComponent(carId)}&track=${trackId}`)}>
           <RotateCcw className="mr-2" /> Race Again
         </NeonButton>
       </motion.div>

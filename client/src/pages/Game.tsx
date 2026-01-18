@@ -4,6 +4,7 @@ import { CARS, TRACKS, type CarModel, type TrackId } from "@/game/assets";
 import { NeonButton } from "@/components/NeonButton";
 import { motion, AnimatePresence } from "framer-motion";
 import { ArrowLeft } from "lucide-react";
+import { useScores } from "@/hooks/use-scores";
 
 // Game Constants
 const FPS = 60;
@@ -182,7 +183,7 @@ export default function Game() {
       if (distStart < 100 && passed.includes(1)) {
         const lapTime = Date.now() - (gameStateRef.current.startTime || 0);
         setGameState(prev => ({ ...prev, finished: true, currentTime: lapTime, playing: false }));
-        setTimeout(() => setLocation(`/results?time=${lapTime}&car=${encodeURIComponent(carId)}`), 1000);
+        setTimeout(() => setLocation(`/results?time=${lapTime}&car=${encodeURIComponent(carId)}&track=${trackId}`), 1000);
       }
     };
 
@@ -226,6 +227,24 @@ export default function Game() {
         <div className="bg-black/50 backdrop-blur border border-primary/50 p-4 rounded-lg neon-border">
           <div className="text-sm text-primary uppercase">Current Lap</div>
           <div className="text-4xl font-mono text-cyan-400">{(gameState.currentTime / 1000).toFixed(2)}s</div>
+        </div>
+        <div className="bg-black/50 backdrop-blur border border-cyan-500/30 p-4 rounded-lg">
+          <div className="text-xs text-cyan-400 uppercase mb-2 border-b border-cyan-500/20 pb-1">Top 5 Laps</div>
+          <div className="space-y-1 font-mono text-sm">
+            {([...(useScores().data || [])]
+              .filter(s => s.carModel === carId && s.trackId === trackId)
+              .sort((a, b) => a.lapTime - b.lapTime)
+              .slice(0, 5)
+              .map((score, i) => (
+                <div key={score.id} className="flex justify-between gap-4">
+                  <span className="text-white/40">{i + 1}. {score.username}</span>
+                  <span className="text-cyan-400">{(score.lapTime / 1000).toFixed(2)}s</span>
+                </div>
+              )))}
+            {(!(useScores().data || []).some(s => s.carModel === carId && s.trackId === trackId)) && (
+              <div className="text-white/20 italic">No records yet</div>
+            )}
+          </div>
         </div>
         <div className="bg-black/50 backdrop-blur border border-secondary/50 p-4 rounded-lg">
           <div className="text-sm text-secondary uppercase">Car / Track</div>
