@@ -159,7 +159,7 @@ export default function Home() {
       </main>
 
       <footer className="py-6 text-center text-white/20 font-display text-xs uppercase tracking-widest">
-        v1.1.0 • Multi-Track Update
+        v1.2.0 • Supercar Expansion
       </footer>
     </div>
   );

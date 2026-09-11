@@ -22,8 +22,7 @@ export function CarCard({ car, selected, onSelect }: CarCardProps) {
       whileHover={{ y: -5 }}
     >
       <div className="aspect-[16/9] mb-4 relative flex items-center justify-center bg-black/20 rounded-lg overflow-hidden">
-        {/* Placeholder image visualization since we are mocking the assets */}
-        <div 
+        <div
           className="w-32 h-48 rounded shadow-lg transition-transform duration-500"
           style={{ 
             backgroundColor: car.color,
@@ -31,15 +30,16 @@ export function CarCard({ car, selected, onSelect }: CarCardProps) {
             transform: selected ? 'scale(1.1)' : 'scale(1)'
           }} 
         >
-          {/* Simple CSS representation of car if image fails */}
           <div className="w-full h-full relative">
             <div className="absolute top-4 left-2 right-2 h-12 bg-black/30 rounded-sm"></div>
             <div className="absolute bottom-4 left-2 right-2 h-8 bg-black/30 rounded-sm"></div>
           </div>
         </div>
-        
-        {/* Actual Image Tag - would be used if assets were real */}
-        {/* <img src={car.image} alt={car.name} className="absolute inset-0 w-full h-full object-contain" /> */}
+        <img
+          src={car.image}
+          alt={car.name}
+          className="absolute inset-0 w-full h-full object-contain p-3 drop-shadow-[0_0_12px_rgba(255,255,255,0.25)]"
+        />
       </div>
 
       <h3 className={cn(

@@ -1,5 +1,5 @@
 // Define car properties and asset paths
-export type CarModel = 'Prelude 2026' | 'GTR R34' | 'Supra MK4' | 'Jesko' | 'Chiron' | 'Gemera' | 'AMG One' | '911 Turbo S';
+export type CarModel = 'Prelude 2026' | 'GTR R34' | 'Supra MK4' | 'Jesko' | 'Chiron' | 'Gemera' | 'AMG One' | '911 Turbo S' | 'SF90 Stradale' | '765LT';
 
 export interface CarStats {
   id: CarModel;
@@ -129,6 +129,34 @@ export const CARS: Record<CarModel, CarStats> = {
     maxSpeed: 21,
     turnSpeed: 0.065,
     driftFactor: 0.92
+  },
+  'SF90 Stradale': {
+    id: 'SF90 Stradale',
+    name: 'Ferrari SF90 Stradale',
+    image: '/images/ferrari_sf90.png',
+    acceleration: 10.0,
+    topSpeed: 9.6,
+    handling: 9.2,
+    color: '#dc2626',
+
+    accelFactor: 0.34,
+    maxSpeed: 23,
+    turnSpeed: 0.061,
+    driftFactor: 0.93
+  },
+  '765LT': {
+    id: '765LT',
+    name: 'McLaren 765LT',
+    image: '/images/mclaren_765lt.png',
+    acceleration: 9.4,
+    topSpeed: 9.3,
+    handling: 9.8,
+    color: '#f97316',
+
+    accelFactor: 0.3,
+    maxSpeed: 22,
+    turnSpeed: 0.068,
+    driftFactor: 0.91
   }
 };
 
