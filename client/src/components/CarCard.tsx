@@ -9,8 +9,6 @@ interface CarCardProps {
 }
 
 export function CarCard({ car, selected, onSelect }: CarCardProps) {
-  const hasTransparentAsset = car.id === "SF90 Stradale" || car.id === "765LT";
-
   return (
     <motion.div
       onClick={onSelect}
@@ -24,28 +22,11 @@ export function CarCard({ car, selected, onSelect }: CarCardProps) {
       whileHover={{ y: -5 }}
     >
       <div className="aspect-[16/9] mb-4 relative flex items-center justify-center bg-transparent rounded-lg overflow-hidden">
-        {!hasTransparentAsset && (
-          <div
-            className="w-32 h-48 rounded shadow-lg transition-transform duration-500"
-            style={{
-              backgroundColor: car.color,
-              boxShadow: `0 0 20px ${car.color}40`,
-              transform: selected ? "scale(1.1)" : "scale(1)"
-            }}
-          >
-            <div className="w-full h-full relative">
-              <div className="absolute top-4 left-2 right-2 h-12 bg-black/30 rounded-sm" />
-              <div className="absolute bottom-4 left-2 right-2 h-8 bg-black/30 rounded-sm" />
-            </div>
-          </div>
-        )}
-        {hasTransparentAsset && (
-          <img
-            src={car.image}
-            alt={car.name}
-            className="absolute inset-0 w-full h-full object-contain p-3 drop-shadow-[0_0_12px_rgba(255,255,255,0.25)]"
-          />
-        )}
+        <img
+          src={car.image}
+          alt={car.name}
+          className="absolute inset-0 w-full h-full object-contain p-3 drop-shadow-[0_0_12px_rgba(255,255,255,0.25)]"
+        />
       </div>
 
       <h3 className={cn(
