@@ -20,15 +20,18 @@ export default function Home() {
   const fastLapsCount = (scores as any[])?.filter(s => s.lapTime < 20000).length || 0;
   const eliteLapsCount = (scores as any[])?.filter(s => s.lapTime < 15000).length || 0;
   const ultimateLapsCount = (scores as any[])?.filter(s => s.lapTime < 10000).length || 0;
+  const masterLapsCount = (scores as any[])?.filter(s => s.lapTime < 9000).length || 0;
   
   const isUnlocked = fastLapsCount >= 3;
   const isEliteUnlocked = eliteLapsCount >= 10;
   const isUltimateUnlocked = ultimateLapsCount >= 15;
+  const isMasterUnlocked = masterLapsCount >= 10;
 
   const isCarLocked = (carId: CarModel) => {
     if (carId === 'Jesko' || carId === 'Supra MK4') return !isUnlocked;
     if (carId === 'Chiron' || carId === 'Gemera') return !isEliteUnlocked;
     if (carId === 'AMG One' || carId === '911 Turbo S') return !isUltimateUnlocked;
+    if (carId === 'Utopia' || carId === 'Valkyrie') return !isMasterUnlocked;
     return false;
   };
 
@@ -68,6 +71,9 @@ export default function Home() {
             </div>
             <div className="text-yellow-400/60 font-display text-xs uppercase">
               Unlock Ultimate Legends: 15 laps under 10s ({ultimateLapsCount}/15)
+            </div>
+            <div className="text-emerald-400/60 font-display text-xs uppercase">
+              Unlock Hyper Elite: 10 laps under 9s ({masterLapsCount}/10)
             </div>
           </div>
         </motion.div>
@@ -159,7 +165,7 @@ export default function Home() {
       </main>
 
       <footer className="py-6 text-center text-white/20 font-display text-xs uppercase tracking-widest">
-        v1.2.0 • Supercar Expansion
+        v1.3.0 • Hyper Elite Expansion
       </footer>
     </div>
   );

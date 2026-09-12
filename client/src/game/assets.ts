@@ -1,5 +1,5 @@
 // Define car properties and asset paths
-export type CarModel = 'Prelude 2026' | 'GTR R34' | 'Supra MK4' | 'Jesko' | 'Chiron' | 'Gemera' | 'AMG One' | '911 Turbo S' | 'SF90 Stradale' | '765LT';
+export type CarModel = 'Prelude 2026' | 'GTR R34' | 'Supra MK4' | 'Jesko' | 'Chiron' | 'Gemera' | 'AMG One' | '911 Turbo S' | 'SF90 Stradale' | '765LT' | 'Utopia' | 'Valkyrie';
 
 export interface CarStats {
   id: CarModel;
@@ -157,6 +157,34 @@ export const CARS: Record<CarModel, CarStats> = {
     maxSpeed: 22,
     turnSpeed: 0.068,
     driftFactor: 0.91
+  },
+  'Utopia': {
+    id: 'Utopia',
+    name: 'Pagani Utopia',
+    image: '/images/pagani_utopia.png',
+    acceleration: 9.8,
+    topSpeed: 9.7,
+    handling: 9.6,
+    color: '#a855f7',
+
+    accelFactor: 0.36,
+    maxSpeed: 24,
+    turnSpeed: 0.067,
+    driftFactor: 0.91
+  },
+  'Valkyrie': {
+    id: 'Valkyrie',
+    name: 'Aston Martin Valkyrie',
+    image: '/images/valkyrie.png',
+    acceleration: 10.0,
+    topSpeed: 10.0,
+    handling: 9.7,
+    color: '#10b981',
+
+    accelFactor: 0.38,
+    maxSpeed: 25,
+    turnSpeed: 0.064,
+    driftFactor: 0.9
   }
 };
 
