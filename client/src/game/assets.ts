@@ -219,6 +219,7 @@ export const TRACKS: Record<TrackId, TrackData> = {
     asphaltColor: "#334155",
     curbColor1: "#ef4444",
     curbColor2: "#ffffff",
+    backgroundImage: "/images/track_forest.png",
   },
   desert: {
     id: 'desert',
@@ -269,6 +270,7 @@ export const TRACKS: Record<TrackId, TrackData> = {
     asphaltColor: "#475569", 
     curbColor1: "#3b82f6",
     curbColor2: "#ffffff",
+    backgroundImage: "/images/track_mountain.png",
   },
   lava: {
     id: 'lava',
@@ -284,6 +286,7 @@ export const TRACKS: Record<TrackId, TrackData> = {
     asphaltColor: "#1a1a1a",
     curbColor1: "#f97316", // orange
     curbColor2: "#7f1d1d",
+    backgroundImage: "/images/track_lava.png",
   },
   chaos: {
     id: 'chaos',
@@ -306,5 +309,6 @@ export const TRACKS: Record<TrackId, TrackData> = {
     asphaltColor: "#020617",
     curbColor1: "#d946ef", // fuchsia
     curbColor2: "#000000",
+    backgroundImage: "/images/track_chaos.png",
   }
 };

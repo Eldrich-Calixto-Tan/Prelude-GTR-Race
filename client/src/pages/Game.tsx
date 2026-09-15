@@ -93,10 +93,20 @@ export default function Game() {
     if (!ctx) return;
 
     let animationFrameId: number;
+    const trackBackground = trackData.backgroundImage ? new Image() : null;
+    if (trackBackground && trackData.backgroundImage) {
+      trackBackground.src = trackData.backgroundImage;
+    }
 
     const renderTrack = (ctx: CanvasRenderingContext2D) => {
-      ctx.fillStyle = trackData.grassColor;
-      ctx.fillRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
+      if (trackBackground?.complete && trackBackground.naturalWidth > 0) {
+        ctx.drawImage(trackBackground, 0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
+        ctx.fillStyle = "rgba(2, 6, 23, 0.22)";
+        ctx.fillRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
+      } else {
+        ctx.fillStyle = trackData.grassColor;
+        ctx.fillRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
+      }
 
       ctx.strokeStyle = "rgba(255,255,255,0.05)";
       ctx.lineWidth = 1;

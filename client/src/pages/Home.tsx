@@ -128,7 +128,10 @@ export default function Home() {
                 >
                   <button
                     onClick={() => setSelectedTrack(trackKey)}
-                    className={`w-full p-4 rounded-lg border transition-all text-left flex items-center justify-between ${
+                    style={{
+                      backgroundImage: `linear-gradient(rgba(2, 6, 23, 0.78), rgba(2, 6, 23, 0.9)), url(${TRACKS[trackKey].backgroundImage})`,
+                    }}
+                    className={`w-full p-4 rounded-lg border bg-cover bg-center transition-all text-left flex items-center justify-between ${
                       selectedTrack === trackKey 
                         ? "bg-primary/20 border-primary shadow-[0_0_15px_rgba(236,72,153,0.3)]" 
                         : "bg-black/40 border-white/10 hover:border-white/30"
