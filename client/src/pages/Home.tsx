@@ -12,6 +12,12 @@ export default function Home() {
   const [, setLocation] = useLocation();
   const [selectedCar, setSelectedCar] = useState<CarModel>("Prelude 2026");
   const [selectedTrack, setSelectedTrack] = useState<TrackId>("nurburgring");
+  const unlockTargets = {
+    secret: 2,
+    elite: 5,
+    ultimate: 8,
+    hyperElite: 5,
+  };
 
   const { data: scores } = useQuery({
     queryKey: [api.scores.list.path],
@@ -22,10 +28,10 @@ export default function Home() {
   const ultimateLapsCount = (scores as any[])?.filter(s => s.lapTime < 10000).length || 0;
   const masterLapsCount = (scores as any[])?.filter(s => s.lapTime < 9000).length || 0;
   
-  const isUnlocked = fastLapsCount >= 3;
-  const isEliteUnlocked = eliteLapsCount >= 10;
-  const isUltimateUnlocked = ultimateLapsCount >= 15;
-  const isMasterUnlocked = masterLapsCount >= 10;
+  const isUnlocked = fastLapsCount >= unlockTargets.secret;
+  const isEliteUnlocked = eliteLapsCount >= unlockTargets.elite;
+  const isUltimateUnlocked = ultimateLapsCount >= unlockTargets.ultimate;
+  const isMasterUnlocked = masterLapsCount >= unlockTargets.hyperElite;
 
   const isCarLocked = (carId: CarModel) => {
     if (carId === 'Jesko' || carId === 'Supra MK4') return !isUnlocked;
@@ -64,16 +70,16 @@ export default function Home() {
           </h1>
           <div className="flex flex-col gap-1 items-center">
             <div className="text-white/40 font-display text-xs uppercase">
-              Unlock secret cars: 3 laps under 20s ({fastLapsCount}/3)
+              Unlock secret cars: 2 laps under 20s ({fastLapsCount}/{unlockTargets.secret})
             </div>
             <div className="text-cyan-400/60 font-display text-xs uppercase">
-              Unlock Elite hypercars: 10 laps under 15s ({eliteLapsCount}/10)
+              Unlock Elite hypercars: 5 laps under 15s ({eliteLapsCount}/{unlockTargets.elite})
             </div>
             <div className="text-yellow-400/60 font-display text-xs uppercase">
-              Unlock Ultimate Legends: 15 laps under 10s ({ultimateLapsCount}/15)
+              Unlock Ultimate Legends: 8 laps under 10s ({ultimateLapsCount}/{unlockTargets.ultimate})
             </div>
             <div className="text-emerald-400/60 font-display text-xs uppercase">
-              Unlock Hyper Elite: 10 laps under 9s ({masterLapsCount}/10)
+              Unlock Hyper Elite: 5 laps under 9s ({masterLapsCount}/{unlockTargets.hyperElite})
             </div>
           </div>
         </motion.div>
@@ -168,7 +174,7 @@ export default function Home() {
       </main>
 
       <footer className="py-6 text-center text-white/20 font-display text-xs uppercase tracking-widest">
-        v1.3.0 • Hyper Elite Expansion
+        v1.4.0 • Apex Labyrinth Update
       </footer>
     </div>
   );
