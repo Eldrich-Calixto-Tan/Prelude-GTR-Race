@@ -30,7 +30,7 @@ export default function Home() {
   const isCarLocked = (carId: CarModel) => {
     if (carId === 'Jesko' || carId === 'Supra MK4') return !isUnlocked;
     if (carId === 'Chiron' || carId === 'Gemera') return !isEliteUnlocked;
-    if (carId === 'AMG One' || carId === '911 Turbo S') return !isUltimateUnlocked;
+    if (carId === 'AMG One' || carId === '911 Turbo S' || carId === 'SF90 Stradale' || carId === '765LT') return !isUltimateUnlocked;
     if (carId === 'Utopia' || carId === 'Valkyrie') return !isMasterUnlocked;
     return false;
   };
