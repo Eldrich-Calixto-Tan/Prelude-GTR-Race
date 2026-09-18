@@ -9,14 +9,6 @@ export async function registerRoutes(
   httpServer: Server,
   app: Express
 ): Promise<Server> {
-  // Seed initial high scores if empty
-  const scores = await storage.getHighScores();
-  if (scores.length === 0) {
-    await storage.createHighScore({ username: "DriftKing", carModel: "GTR R34", lapTime: 45000 });
-    await storage.createHighScore({ username: "PreludeFan", carModel: "Prelude 2026", lapTime: 48500 });
-    await storage.createHighScore({ username: "SpeedRacer", carModel: "GTR R34", lapTime: 44200 });
-  }
-
   app.get(api.scores.list.path, async (req, res) => {
     const scores = await storage.getHighScores();
     res.json(scores);
