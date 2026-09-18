@@ -11,7 +11,7 @@ import { api } from "@shared/routes";
 export default function Home() {
   const [, setLocation] = useLocation();
   const [selectedCar, setSelectedCar] = useState<CarModel>("Prelude 2026");
-  const [selectedTrack, setSelectedTrack] = useState<TrackId>("forest");
+  const [selectedTrack, setSelectedTrack] = useState<TrackId>("nurburgring");
 
   const { data: scores } = useQuery({
     queryKey: [api.scores.list.path],

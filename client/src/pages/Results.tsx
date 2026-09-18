@@ -11,7 +11,7 @@ export default function Results() {
   const params = new URLSearchParams(window.location.search);
   const time = parseInt(params.get("time") || "0");
   const carId = params.get("car") || "Prelude 2026";
-  const trackId = params.get("track") || "forest";
+  const trackId = "nurburgring";
   const [username, setUsername] = useState("");
   const [submitted, setSubmitted] = useState(false);
 

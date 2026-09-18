@@ -26,7 +26,7 @@ export default function Game() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [params] = useState(() => new URLSearchParams(window.location.search));
   const carId = (params.get("car") as CarModel) || "Prelude 2026";
-  const trackId = (params.get("track") as TrackId) || "forest";
+  const trackId: TrackId = "nurburgring";
   
   const carStats = CARS[carId];
   const trackData = TRACKS[trackId];
