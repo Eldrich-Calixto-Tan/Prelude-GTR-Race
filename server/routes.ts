@@ -1,14 +1,10 @@
 
 import type { Express } from "express";
-import { createServer, type Server } from "http";
 import { storage } from "./storage";
-import { api } from "@shared/routes";
+import { api } from "../shared/routes";
 import { z } from "zod";
 
-export async function registerRoutes(
-  httpServer: Server,
-  app: Express
-): Promise<Server> {
+export async function registerRoutes(app: Express): Promise<void> {
   app.get(api.scores.list.path, async (req, res) => {
     const scores = await storage.getHighScores();
     res.json(scores);
@@ -27,5 +23,4 @@ export async function registerRoutes(
     }
   });
 
-  return httpServer;
 }

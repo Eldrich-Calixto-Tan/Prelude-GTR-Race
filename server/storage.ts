@@ -1,4 +1,4 @@
-import { highScores, type HighScore, type InsertHighScore } from "@shared/schema";
+import { highScores, type HighScore, type InsertHighScore } from "../shared/schema";
 import { db } from "./db";
 import { asc } from "drizzle-orm";
 
