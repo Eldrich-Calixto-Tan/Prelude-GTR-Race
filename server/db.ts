@@ -1,7 +1,7 @@
 
 import { drizzle } from "drizzle-orm/node-postgres";
 import pg from "pg";
-import * as schema from "../shared/schema";
+import * as schema from "../shared/schema.js";
 
 const { Pool } = pg;
 
@@ -20,6 +20,10 @@ export function getDatabase() {
     throw new DatabaseConfigurationError();
   }
 
-  pool ??= new Pool({ connectionString });
+  pool ??= new Pool({
+    connectionString,
+    // keep serverless instances from exhausting the database's connections
+    max: process.env.VERCEL ? 1 : 10,
+  });
   return drizzle(pool, { schema });
 }

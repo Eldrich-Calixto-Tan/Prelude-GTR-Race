@@ -1,6 +1,6 @@
 
 import { z } from 'zod';
-import { insertHighScoreSchema, highScores } from './schema';
+import { insertHighScoreSchema, highScores } from './schema.js';
 
 export const api = {
   scores: {

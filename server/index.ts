@@ -66,8 +66,11 @@ app.use((req, res, next) => {
     const status = err.status || err.statusCode || 500;
     const message = err.message || "Internal Server Error";
 
-    res.status(status).json({ message });
-    throw err;
+    // Log instead of rethrowing: a rethrow after responding crashes the process.
+    console.error(err);
+    if (!res.headersSent) {
+      res.status(status).json({ message });
+    }
   });
 
   // importantly only setup vite in development and after
@@ -89,7 +92,8 @@ app.use((req, res, next) => {
     {
       port,
       host: "0.0.0.0",
-      reusePort: true,
+      // SO_REUSEPORT isn't supported on macOS (listen fails with ENOTSUP)
+      reusePort: process.platform === "linux",
     },
     () => {
       log(`serving on port ${port}`);

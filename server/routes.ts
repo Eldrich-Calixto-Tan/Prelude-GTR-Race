@@ -1,8 +1,8 @@
 
 import type { Express } from "express";
-import { storage } from "./storage";
-import { DatabaseConfigurationError } from "./db";
-import { api } from "../shared/routes";
+import { storage } from "./storage.js";
+import { DatabaseConfigurationError } from "./db.js";
+import { api } from "../shared/routes.js";
 import { z } from "zod";
 
 export async function registerRoutes(app: Express): Promise<void> {

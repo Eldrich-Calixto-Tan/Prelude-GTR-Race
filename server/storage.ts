@@ -1,5 +1,5 @@
-import { highScores, type HighScore, type InsertHighScore } from "../shared/schema";
-import { getDatabase } from "./db";
+import { highScores, type HighScore, type InsertHighScore } from "../shared/schema.js";
+import { getDatabase } from "./db.js";
 import { asc } from "drizzle-orm";
 
 export interface IStorage {
