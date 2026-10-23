@@ -5,11 +5,21 @@ import * as schema from "../shared/schema";
 
 const { Pool } = pg;
 
-if (!process.env.DATABASE_URL) {
-  throw new Error(
-    "DATABASE_URL must be set. Did you forget to provision a database?",
-  );
+let pool: InstanceType<typeof Pool> | undefined;
+
+export class DatabaseConfigurationError extends Error {
+  constructor() {
+    super("DATABASE_URL must be set to use the leaderboard.");
+    this.name = "DatabaseConfigurationError";
+  }
 }
 
-export const pool = new Pool({ connectionString: process.env.DATABASE_URL });
-export const db = drizzle(pool, { schema });
+export function getDatabase() {
+  const connectionString = process.env.DATABASE_URL;
+  if (!connectionString) {
+    throw new DatabaseConfigurationError();
+  }
+
+  pool ??= new Pool({ connectionString });
+  return drizzle(pool, { schema });
+}

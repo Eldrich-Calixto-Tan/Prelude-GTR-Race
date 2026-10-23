@@ -1,5 +1,5 @@
 import { highScores, type HighScore, type InsertHighScore } from "../shared/schema";
-import { db } from "./db";
+import { getDatabase } from "./db";
 import { asc } from "drizzle-orm";
 
 export interface IStorage {
@@ -9,13 +9,13 @@ export interface IStorage {
 
 export class DatabaseStorage implements IStorage {
   async getHighScores(): Promise<HighScore[]> {
-    return await db.select()
+    return await getDatabase().select()
       .from(highScores)
       .orderBy(asc(highScores.lapTime));
   }
 
   async createHighScore(insertScore: InsertHighScore): Promise<HighScore> {
-    const [score] = await db
+    const [score] = await getDatabase()
       .insert(highScores)
       .values(insertScore)
       .returning();
